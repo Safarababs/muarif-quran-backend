@@ -19,6 +19,10 @@ mongoose
 
 // routes
 
+app.get("/", (req, res) => {
+  res.send("Hey welcome to your backend server");
+});
+
 app.use("/", require("./routes/userRoute"));
 app.use("/", require("./routes/lectureRoute"));
 app.use("/", require("./routes/imageRoute"));
