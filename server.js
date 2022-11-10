@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 
-const DB = process.env.DB;
+const DB = process.env.DBASE;
 
 mongoose.connect(
   DB,
