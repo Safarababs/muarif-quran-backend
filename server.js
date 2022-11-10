@@ -10,10 +10,20 @@ app.use(express.static(__dirname + "/public"));
 
 const DB = process.env.DB;
 
-mongoose
-  .connect(DB)
-  .then(() => console.log("successfully connected with database"))
-  .catch((err) => console.log("Monogdb connection error", err));
+mongoose.connect(
+  DB,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  (err) => {
+    if (!err) {
+      console.log("database Connected Successfully");
+    } else {
+      console.log("Error in Db connection", err);
+    }
+  }
+);
 
 // ------------end of middleware---------
 
