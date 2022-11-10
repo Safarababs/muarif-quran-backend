@@ -20,7 +20,6 @@ router.route("/create").post((req, res) => {
 
 router.route("/lectures").get((req, res) => {
   Lecture.find().then((foundLecture) => res.json(foundLecture));
-  res.send(foundLecture);
 });
 
 module.exports = router;
