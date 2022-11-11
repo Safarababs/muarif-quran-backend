@@ -11,9 +11,7 @@ app.use(express.static(__dirname + "/public"));
 const DB = process.env.PASSWORD;
 
 mongoose.connect(
-  "mongodb+srv://safar-admin:" +
-    DB +
-    "@mflix.zags8.mongodb.net/muarif-e-quran?retryWrites=true&w=majority",
+  "mongodb+srv://safar-admin:sn5125a1@mflix.zags8.mongodb.net/muarif-e-quran?retryWrites=true&w=majority",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
