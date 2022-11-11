@@ -8,10 +8,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 
-const DB = process.env.DBASE;
-
 mongoose.connect(
-  "mongodb+srv://safar-admin:sn5125a1@mflix.zags8.mongodb.net/muarif-e-quran?retryWrites=true&w=majority",
+  process.env.DBASE,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
