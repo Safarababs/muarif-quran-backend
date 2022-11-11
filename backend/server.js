@@ -8,8 +8,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 
+const DB = process.env.PASSWORD;
+
 mongoose.connect(
-  "mongodb+srv://" + process.env.DBASE,
+  "mongodb+srv://safar-admin:" +
+    DB +
+    "@mflix.zags8.mongodb.net/muarif-e-quran?retryWrites=true&w=majority",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
