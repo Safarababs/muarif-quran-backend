@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 
 mongoose.connect(
-  process.env.DBASE,
+  "mongodb+srv://" + process.env.DBASE,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
