@@ -78,6 +78,10 @@ app.post("/result", (req, res) => {
       });
 });
 
+app.get("/results", (req, res) => {
+  Result.find().then((foundResult) => res.json(foundResult));
+});
+
 
 app.use("/", require("./routes/userRoute"));
 app.use("/", require("./routes/lectureRoute"));
