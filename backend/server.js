@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
+const fs = require('fs');
 
 app.use(cors());
 app.use(express.json());
@@ -52,6 +53,7 @@ const resultSchema = new mongoose.Schema({
 
 const Result = mongoose.model("Result", resultSchema);
 
+
 app.post("/result", (req, res) => {
     const { name, phoneNumber, city, obtainedMarks } = req.body;
   
@@ -78,9 +80,13 @@ app.post("/result", (req, res) => {
       });
 });
 
+// this result for agha sb only
+
 app.get("/results", (req, res) => {
   Result.find().then((foundResult) => res.json(foundResult));
 });
+
+
 
 
 app.use("/", require("./routes/userRoute"));
