@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
 const fs = require('fs');
+const { log } = require("console");
 
 app.use(cors());
 app.use(express.json());
@@ -55,30 +56,31 @@ const Result = mongoose.model("Result", resultSchema);
 
 
 app.post("/result", (req, res) => {
-    const { name, phoneNumber, city, obtainedMarks } = req.body;
-  
-    const resultDetails = obtainedMarks.resultDetails.map((result) => ({
-      question: result.question.question,
-      answer: result.answer,
-      isCorrect: result.isCorrect,
-    }));
-  
-    const result = new Result({
-      name,
-      phoneNumber,
-      city,
-      obtainedMarks: obtainedMarks.obtainedMarks,
-      questionResults: resultDetails,
+  const { name, phoneNumber, city, obtainedMarks, resultDetails } = req.body;
+
+  const questionResults = resultDetails.map((result) => ({
+    question: result.question,
+    selectedAnswer: result.answer,
+    correctAnswer: result.correctAnswer,
+  }));
+
+  const result = new Result({
+    name,
+    phoneNumber,
+    city,
+    obtainedMarks,
+    questionResults,
+  });
+
+  result.save()
+    .then(() => {
+      res.json({ message: "Successfully sent" });
+    })
+    .catch((error) => {
+      res.status(500).json({ message: "Error occurred while saving the result" });
     });
-  
-    result.save()
-      .then(() => {
-        res.json({ message: "Successfully sent" });
-      })
-      .catch((error) => {
-        res.status(500).json({ message: "Error occurred while saving the result" });
-      });
 });
+
 
 // this result for agha sb only
 
