@@ -6,7 +6,12 @@ const app = express();
 const fs = require('fs');
 const { log } = require("console");
 
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:3000", 
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 
@@ -41,8 +46,8 @@ const resultSchema = new mongoose.Schema({
   name: String,
   phoneNumber: String,
   city: String,
-  answers: [String],
   obtainedMarks: Number,
+  answers: [String], // Updated field
   questionResults: [
     {
       question: String,
@@ -56,19 +61,23 @@ const Result = mongoose.model("Result", resultSchema);
 
 
 app.post("/result", (req, res) => {
-  const { name, phoneNumber, city, obtainedMarks, resultDetails } = req.body;
+  const { name, phoneNumber, city, obtainedMarks, answers, shuffledQuestions } = req.body;
 
-  const questionResults = resultDetails.map((result) => ({
-    question: result.question,
-    selectedAnswer: result.answer,
-    correctAnswer: result.correctAnswer,
+  const parsedAnswers = JSON.parse(answers); // Convert back to array
+  const parsedQuestions = JSON.parse(shuffledQuestions);
+  
+  const questionResults = parsedAnswers.map((answer, index) => ({
+    question: parsedQuestions[index].question,
+    selectedAnswer: answer,
+    correctAnswer: parsedQuestions[index].correctAnswer,
   }));
-
+  
   const result = new Result({
     name,
     phoneNumber,
     city,
     obtainedMarks,
+    answers: parsedAnswers, // Use parsedAnswers here
     questionResults,
   });
 
@@ -78,8 +87,10 @@ app.post("/result", (req, res) => {
     })
     .catch((error) => {
       res.status(500).json({ message: "Error occurred while saving the result" });
+      console.log(error)
     });
 });
+
 
 
 // this result for agha sb only
