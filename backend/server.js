@@ -7,7 +7,7 @@ const fs = require('fs');
 const { log } = require("console");
 
 const corsOptions = {
-  origin: "http://localhost:3000", 
+  origin: "https://muarif-quran.netlify.app/", 
 };
 
 app.use(cors(corsOptions));
