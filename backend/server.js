@@ -6,11 +6,9 @@ const app = express();
 const fs = require('fs');
 const { log } = require("console");
 
-const corsOptions = {
-  origin: "https://muarif-quran.netlify.app/", 
-};
 
-app.use(cors(corsOptions));
+
+app.use(cors());
 
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
